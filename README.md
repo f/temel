@@ -1,36 +1,49 @@
 # temel
 
-TODO: Write a description here
+Temel is a markup language for **Crystal**.
 
 ## Installation
-
 
 Add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
   temel:
-    github: [your-github-name]/temel
+    github: f/temel
 ```
 
 
 ## Usage
 
-
 ```crystal
+require "kemal"
 require "temel"
+
+get "/" do
+  html do
+    body do
+      h1 "Hello World!"
+    end
+  end
+end
 ```
-
-
-TODO: Write usage instructions here
 
 ## Development
 
-TODO: Write development instructions here
+You can extend the Temel by adding your own tags.
+
+
+### Adding a new tag
+
+```
+tag [tagname]
+```
+
+will register a new tag.
 
 ## Contributing
 
-1. Fork it ( https://github.com/[your-github-name]/temel/fork )
+1. Fork it ( https://github.com/f/temel/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
@@ -38,4 +51,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) Fatih Kadir Akın - creator, maintainer
+- [f](https://github.com/f) Fatih Kadir Akın - creator, maintainer
