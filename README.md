@@ -1,6 +1,47 @@
-# temel
+# Temel
 
-Temel is a markup language for **Crystal**.
+Temel is a markup language for **Crystal**. A simpler alternative to [HTML Builder](http://github.com/crystal-lang/html-builder).
+
+- Custom tag registration with a simple `tag` macro.
+- Supports **Web Components**.
+- Simpler DSL (comparing to HTML::Builder).
+
+```ruby
+# Register tags first.
+tag my_application
+tag hello_world
+
+get "/" do
+  html(
+    body({id: "main"},
+      my_application hello_world "Hello World!"
+    )
+  )
+end
+```
+
+Or, you can alternatively use block based syntax (Just like HTML::Builder) instead of argument based syntax:
+
+```ruby
+get "/" do
+  html do
+    body({id: "main"}) do
+      my_application hello_world "Hello World!"
+    end
+  end
+end
+```
+
+The output will be:
+```html
+<html>
+  <body>
+    <my-application>
+      <hello-world>Hello World!</hello-world>
+    </my-application>
+  </body>
+</html>
+```
 
 ## Installation
 
@@ -12,26 +53,75 @@ dependencies:
     github: f/temel
 ```
 
-
 ## Usage
 
-```crystal
+```ruby
 require "kemal"
 require "temel"
 
 get "/" do
-  html do
-    body do
-      h1 "Hello World!"
-    end
-  end
+  html(
+    body(
+      h1 "Hello World"
+    )
+  )
+end
+```
+
+### Argument Based DSL vs Block Based DSL
+
+Argument based DSL is a bit different than HTML::Builder's.
+
+#### Argument Based DSL
+```ruby
+get "/" do
+  html(
+    head(
+      script({src: "main.js"})
+    ),
+    body({id: "main"},
+      h1 "Hello World!",
+      p "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    )
+  )
+end
+```
+
+#### Block Based DSL
+```ruby
+get "/" do
+  html do [
+    head do
+      script({src: "main.js"})
+    end,
+    body({id: "main"}) do [
+      h1 "Hello World!",
+      p "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    ] end
+  ] end
+] end
+```
+
+### Comments
+You can add HTML comments with Temel.
+
+```ruby
+get "/" do
+  html(
+    body(
+      ul(
+        comment("ko foreach: myItems"),
+        li({"data-bind": "text: $data"}),
+        comment("/ko")
+      )
+    )
+  )
 end
 ```
 
 ## Development
 
 You can extend the Temel by adding your own tags.
-
 
 ### Adding a new tag
 
