@@ -35,7 +35,7 @@ end
 The output will be:
 ```html
 <html>
-  <body>
+  <body id="main">
     <my-application>
       <hello-world>Hello World!</hello-world>
     </my-application>
