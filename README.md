@@ -68,6 +68,43 @@ get "/" do
 end
 ```
 
+### Using as Template Engine
+
+You can use Temel as layout engine with functions.
+
+```crystal
+# layout.tpl.cr
+def layout(content)
+  html(
+    head(
+      title("Hello")
+    ),
+    body(content)
+  )
+end
+```
+
+... just by using Crystal's internals, nothing more...
+
+```crystal
+# hello.tpl.cr
+require "layout.tpl"
+
+def hello(where)
+  layout("Hello #{where}")
+end
+```
+
+... use it with Kemal makes everything better.
+```crystal
+# main.cr
+require "hello.tpl"
+
+get "/" do |env|
+  hello(env.params.where)
+end
+```
+
 ### Argument Based DSL vs Block Based DSL
 
 Argument based DSL is a bit different than HTML::Builder's.
