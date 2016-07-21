@@ -13,7 +13,7 @@ macro tag(name)
   def {{name}}
     "<#{ legalize_tag {{name.id}} } />"
   end
-  def {{name}}(attrs : Hash)
+  def {{name}}(attrs : NamedTuple)
     "<#{ legalize_tag {{name.id}} } #{attributes attrs} />"
   end
   def {{name}}(content : String|Int)
@@ -26,7 +26,7 @@ macro tag(name)
     content = content.join "" if content.is_a? Array
     "<#{ legalize_tag {{name.id}} }>#{content}</#{ legalize_tag {{name.id}} }>"
   end
-  def {{name}}(attrs : Hash, &block)
+  def {{name}}(attrs : NamedTuple, &block)
     content = yield
     content = content.join "" if content.is_a? Array
     "<#{ legalize_tag {{name.id}} } #{attributes attrs}>#{content}</#{ legalize_tag {{name.id}} }>"
@@ -36,7 +36,7 @@ macro tag(name)
   def {{name}}(*elements)
     "<#{ legalize_tag {{name.id}} }>#{elements.join ""}</#{ legalize_tag {{name.id}} }>"
   end
-  def {{name}}(attrs : Hash, *elements)
+  def {{name}}(attrs : NamedTuple, *elements)
     "<#{ legalize_tag {{name.id}} } #{attributes attrs}>#{elements.join ""}</#{ legalize_tag {{name.id}} }>"
   end
 end
