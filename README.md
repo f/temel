@@ -156,6 +156,41 @@ get "/" do
 end
 ```
 
+## Using with [Onyx](https://github.com/ozra/onyx-lang)
+
+Works with Onyx seamlessly.[*](https://github.com/ozra/onyx-lang/issues/60#issuecomment-201954355).
+
+```coffee
+html
+   head
+      title "Testing it out!"
+      script
+         { type: "bad-script" }
+         "my-fine-file.bad-ass"
+   body
+      div
+         {id: "main-div"}
+
+         if is-welcome ? h1 "Welcome" : h2 "This is it"
+
+         article
+            h2 "The fat and the furious"
+            p
+               "
+               Long
+               article text
+               here
+               and stuff, mkay Mr. {some-name}!
+               "
+
+               ul items.map(~> li _1).join
+
+      div {id: "footer"},
+         nav ul
+            li a {href: "asdfsadf"}, "Contact"
+            li a {href: "bfadfasdf.se"}, "About"
+```
+
 ## Development
 
 You can extend the Temel by adding your own tags.
