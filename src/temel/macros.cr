@@ -6,37 +6,37 @@ macro attributes(list)
 end
 
 macro legalize_tag(name)
-  "#{ "{{name}}".gsub(/_/, '-') }"
+  "#{ "{{name.id}}".gsub(/_/, '-') }"
 end
 
 macro tag(name)
-  def {{name}}
-    "<#{ legalize_tag {{name.id}} } />"
+  def {{name.id}}
+    "<#{ legalize_tag {{name}} } />"
   end
-  def {{name}}(attrs : NamedTuple)
-    "<#{ legalize_tag {{name.id}} } #{attributes attrs} />"
+  def {{name.id}}(attrs : NamedTuple)
+    "<#{ legalize_tag {{name}} } #{attributes attrs} />"
   end
-  def {{name}}(content : String|Int)
-    "<#{ legalize_tag {{name.id}} }>#{content}</#{ legalize_tag {{name.id}} }>"
+  def {{name.id}}(content : String|Int)
+    "<#{ legalize_tag {{name}} }>#{content}</#{ legalize_tag {{name}} }>"
   end
 
   # Block Based DSL
-  def {{name}}(&block)
+  def {{name.id}}(&block)
     content = yield
     content = content.join "" if content.is_a? Array
-    "<#{ legalize_tag {{name.id}} }>#{content}</#{ legalize_tag {{name.id}} }>"
+    "<#{ legalize_tag {{name}} }>#{content}</#{ legalize_tag {{name}} }>"
   end
-  def {{name}}(attrs : NamedTuple, &block)
+  def {{name.id}}(attrs : NamedTuple, &block)
     content = yield
     content = content.join "" if content.is_a? Array
-    "<#{ legalize_tag {{name.id}} } #{attributes attrs}>#{content}</#{ legalize_tag {{name.id}} }>"
+    "<#{ legalize_tag {{name}} } #{attributes attrs}>#{content}</#{ legalize_tag {{name}} }>"
   end
 
   # Argument Based DSL
-  def {{name}}(*elements)
-    "<#{ legalize_tag {{name.id}} }>#{elements.join ""}</#{ legalize_tag {{name.id}} }>"
+  def {{name.id}}(*elements)
+    "<#{ legalize_tag {{name}} }>#{elements.join ""}</#{ legalize_tag {{name}} }>"
   end
-  def {{name}}(attrs : NamedTuple, *elements)
-    "<#{ legalize_tag {{name.id}} } #{attributes attrs}>#{elements.join ""}</#{ legalize_tag {{name.id}} }>"
+  def {{name.id}}(attrs : NamedTuple, *elements)
+    "<#{ legalize_tag {{name}} } #{attributes attrs}>#{elements.join ""}</#{ legalize_tag {{name}} }>"
   end
 end
